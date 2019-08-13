@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {Pane} from 'evergreen-ui';
+import React from 'react';
+import {Pane, Paragraph} from 'evergreen-ui';
 import PropTypes from 'prop-types';
 
 const Posts = (props) => {
-  const posts = this.props.posts.map(({title}) => <div key={title}>{title}</div>);
+  const posts = props.posts.map(({title}) => <Paragraph size={300} marginTop="default" key={title}>{title}</Paragraph>);
   return (
     <Pane>
       {posts}
@@ -12,7 +12,7 @@ const Posts = (props) => {
 };
 
 Posts.propTypes = {
-  posts: PropTypes.object,
+  posts: PropTypes.array,
 };
 
 export default Posts;

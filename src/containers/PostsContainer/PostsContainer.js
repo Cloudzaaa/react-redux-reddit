@@ -1,31 +1,42 @@
 import React, {Component} from 'react';
 import Posts from '../../components/Posts';
 import {connect} from 'react-redux';
-import fetchPostsIfNeeded from '../../actions'
+import {fetchPostsIfNeeded} from '../../actions'
+import SpinnerCentered from '../../components/SpinnerCentered';
 
 class PostsContainer extends Component {
-  state = {
-    posts: [],
-    subreddit: '',
-  };
 
   componentDidMount() {
-    this.props.fetchPostsIfNeeded(this.props.subreddit);
+    const {dispatch, selectedSubreddit} = this.props;
+    dispatch(fetchPostsIfNeeded(selectedSubreddit));
   }
 
+  render() {
+    const {isFetching, posts} = this.props;
+    return (
+      isFetching ? <SpinnerCentered /> : <Posts posts={posts}/>
+    )
+  }
 }
 
-const mapStateToProps = ({subreddit}) => {
+const mapStateToProps = (state) => {
+  const {selectedSubreddit, postsBySubreddit} = state;
+  const {
+    isFetching,
+    lastUpdated,
+    items: posts,
+  } = postsBySubreddit[selectedSubreddit] || {
+    isFetching: true,
+    items: [],
+  };
+
   return {
-    subreddit,
+    selectedSubreddit,
+    posts,
+    isFetching,
+    lastUpdated,
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getPosts: dispatch(fetchPostsIfNeeded)
-  }
-};
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);
+export default connect(mapStateToProps)(PostsContainer);

@@ -1,0 +1,20 @@
+{
+  "selectedSubreddit": 'frontend',
+  "postsBySubreddit": {
+    "reactjs": {
+      "isFetching": false,
+      "didInvalidate": false,
+      "lastUpdated": 1439478405547,
+      "items": [
+        {
+          "id": 42,
+          "title": 'Flux'
+        },
+        {
+          "id": 500,
+          "title": 'React Architecture'
+        }
+      ]
+    }
+  }
+}

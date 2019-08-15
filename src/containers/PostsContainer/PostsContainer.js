@@ -12,10 +12,10 @@ class PostsContainer extends Component {
   }
 
   render() {
-    const {isFetching, posts} = this.props;
-    return (
-      isFetching ? <SpinnerCentered /> : <Posts posts={posts}/>
-    )
+    const {isFetching, posts, didInvalidate} = this.props;
+    const hasError = didInvalidate ? 'There were some errors...' : null;
+    const content = isFetching ? <SpinnerCentered /> : <Posts posts={posts}/>;
+    return hasError ? hasError : content;
   }
 }
 
@@ -25,9 +25,11 @@ const mapStateToProps = (state) => {
     isFetching,
     lastUpdated,
     items: posts,
+    didInvalidate = false,
   } = postsBySubreddit[selectedSubreddit] || {
     isFetching: true,
     items: [],
+    didInvalidate: false,
   };
 
   return {

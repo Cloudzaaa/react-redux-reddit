@@ -38,8 +38,10 @@ export const fetchPosts = (subreddit) => {
     dispatch(requestPosts(subreddit));
     return fetch(`http://www.reddit.com/r/${subreddit}.json`)
       .then(response => response.json())
-      .then(json => dispatch(recievePosts(subreddit, json)),
-      )
+      .then(json => dispatch(recievePosts(subreddit, json)))
+      .catch(() => {
+        dispatch(invalidateSubreddit(subreddit));
+      })
   }
 };
 

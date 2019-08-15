@@ -10,7 +10,6 @@ class SearchFormContainer extends Component {
     e.preventDefault();
     console.log(subreddit);
     dispatch(fetchPostsIfNeeded(subreddit));
-    dispatch(selectSubredit(subreddit));
   };
 
   render() {
